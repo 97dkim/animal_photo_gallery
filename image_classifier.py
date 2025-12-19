@@ -289,10 +289,12 @@ class ImageClassifier:
             return "Bear"
         
         # Primates
-        if any(keyword in label_lower for keyword in ['monkey', 'ape', 'gorilla', 'chimpanzee', 
+        if 'gorilla' in label_lower:
+            return "Gorilla"
+        if any(keyword in label_lower for keyword in ['monkey', 'ape', 'chimpanzee', 
                                                        'orangutan', 'gibbon', 'baboon', 'macaque',
                                                        'lemur', 'marmoset', 'capuchin']):
-            return "Monkey/Primate"
+            return "Monkey"
         
         # Marine mammals
         if any(keyword in label_lower for keyword in ['whale', 'dolphin', 'seal', 'walrus', 

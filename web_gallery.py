@@ -72,7 +72,7 @@ def gallery():
                         'url': img_url,
                         'name': img,
                         'category': category,
-                        'time': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(img_time)),
+                        'time': time.strftime('%B %d, %Y. %I:%M%p', time.localtime(img_time)).replace(' 0', ' '),
                         'filter': metadata.get('filter', 'Normal'),
                         'ai_label': metadata.get('ai_label', 'Not classified'),
                         'confidence': metadata.get('confidence', 'N/A')

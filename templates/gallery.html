@@ -31,15 +31,6 @@
             position: relative;
         }
         
-        .container::before {
-            content: '📖';
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 2em;
-            opacity: 0.3;
-        }
-        
         .container::after {
             content: '📖';
             position: absolute;
@@ -347,7 +338,7 @@
         }
         
         .ai-confidence {
-            color: #1e90ff;
+            color: #8b6f47;
             font-weight: bold;
         }
         
@@ -428,10 +419,180 @@
             transform: scale(1.12) rotateZ(5deg);
             box-shadow: 0 10px 24px rgba(200, 90, 23, 0.5);
         }
+
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .achievement-modal.active {
+            display: flex;
+        }
+
+        .achievement-modal-content {
+            background: #fffcf7;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 4px solid #d4a574;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .achievement-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #c85a17;
+            border: none;
+            color: #fffcf7;
+            font-size: 2em;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .achievement-modal-close:hover {
+            background: #a84910;
+            transform: scale(1.1);
+        }
+
+        .achievement-modal-emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .achievement-modal-name {
+            color: #c85a17;
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        }
+
+        .achievement-modal-description {
+            color: #3d2817;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .achievement-modal-status {
+            font-size: 1em;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .achievement-modal-status.unlocked {
+            background: #d4a574;
+            color: #fffcf7;
+        }
+
+        .achievement-modal-status.locked {
+            background: #e8d5c4;
+            color: #8b6f47;
+        }
+
+        .achievements-popup-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .achievements-popup-modal.active {
+            display: flex;
+        }
+
+        .achievements-popup-content {
+            background: #fffcf7;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 900px;
+            width: 90%;
+            border: 4px solid #d4a574;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.3s ease;
+            margin: auto;
+        }
+
+        .achievements-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #c85a17;
+            border: none;
+            color: #fffcf7;
+            font-size: 2em;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 2501;
+        }
+
+        .achievements-popup-close:hover {
+            background: #a84910;
+            transform: scale(1.1);
+        }
+
+        .achievements-popup-content h2 {
+            color: #c85a17;
+            font-size: 2.2em;
+            font-weight: 900;
+            margin-bottom: 35px;
+            text-align: center;
+            text-shadow: 2px 2px 0 #d4a574;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        }
         
         .achievement-emoji {
             font-size: 2.5em;
             margin-bottom: 8px;
+            cursor: pointer;
         }
         
         .achievement-name {
@@ -629,7 +790,7 @@
             width: 100%;
             color: #fffcf7;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 20px;
         }
         
         .zoom-tools-row {
@@ -637,6 +798,7 @@
             gap: 10px;
             flex-wrap: wrap;
             align-items: center;
+            margin-top: 8px;
         }
         
         .filter-btn {
@@ -756,6 +918,26 @@
             box-shadow: 0 0 16px rgba(200, 90, 23, 0.5);
         }
         
+        #magnifyingGlass {
+            display: none;
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 4px solid #c85a17;
+            border-radius: 50%;
+            background-size: 400% 400%;
+            background-position: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.3);
+            cursor: crosshair;
+            pointer-events: none;
+            z-index: 2003;
+            overflow: hidden;
+        }
+        
+        #magnifyingGlass.active {
+            display: block;
+        }
+        
         #zoomImage.magnified {
             cursor: crosshair;
         }
@@ -824,18 +1006,6 @@
             </div>
         </div>
         
-        {% if filter_stats %}
-        <div class="filter-stats">
-            <h3 style="width: 100%; text-align: center; margin-bottom: 15px; color: #555;">Filter Usage:</h3>
-            {% for filter_name, count in filter_stats.items() %}
-            <div class="filter-badge">
-                {{ filter_name }}
-                <span class="filter-count">{{ count }}</span>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        
         {% if categories %}
             {% for category, images in categories.items() %}
             <div class="category-section">
@@ -849,10 +1019,12 @@
                             {% elif category == 'other' %}📁
                             {% elif category == 'test' %}🧪
                             {% elif category == 'other_animal' %}🐘
-                            {% elif category == 'non_animal' %}🚫
+                            {% elif category == 'non_animal' %}🎲
                             {% else %}📸{% endif %}
                         </span>
-                        {{ category.replace('_', ' ')|upper }}
+                        {% if category == 'other_animal' %}OTHER ANIMALS
+                        {% elif category == 'non_animal' %}SOMETHING ELSE
+                        {% else %}{{ category.replace('_', ' ')|upper }}{% endif %}
                     </h2>
                     <div class="category-count">{{ images|length }} photos</div>
                 </div>
@@ -868,24 +1040,18 @@
                             {% endif %}
                         </div>
                         <div class="image-info">
-                            <div class="image-name">{{ image.name }}</div>
+                            <div class="image-name">{{ image.ai_label }}</div>
                             <div class="image-details">
                                 <div class="detail-item">
-                                    <span class="detail-label">AI Result:</span>
-                                    <span>{{ image.ai_label }}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Confidence:</span>
-                                    <span class="ai-confidence">{{ image.confidence }}</span>
+                                    <span class="ai-confidence">I'm {{ image.confidence }} confident I'm right!</span>
                                 </div>
                                 <div class="detail-item">
                                     <span class="detail-label">Time:</span>
                                     <span>{{ image.time }}</span>
                                 </div>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px;">
-                                <span class="category-tag">{{ image.category.replace('_', ' ') }}</span>
-                                <a href="/download/{{ image.category }}/{{ image.name }}" download style="text-decoration: none; background: #3498db; color: white; padding: 6px 12px; border-radius: 10px; font-weight: 600; font-size: 0.9em;">Download</a>
+                            <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+                                <a href="/download/{{ image.category }}/{{ image.name }}" download style="text-decoration: none; background: #8b6f47; color: white; padding: 6px 12px; border-radius: 10px; font-weight: 600; font-size: 0.9em;">Download</a>
                             </div>
                         </div>
                     </div>
@@ -912,51 +1078,51 @@
         <div class="achievements-section">
             <h2>🏆 My Zoo Achievements</h2>
             <div class="achievements-grid">
-                <div class="achievement-badge unlocked" title="Scout: Found your first animal!">
+                <div class="achievement-badge unlocked" onclick="showAchievementDetails('First Scout', '🦁', 'Found your first animal!', 'Upload your first photo to earn this achievement.', true)">
                     <div class="achievement-emoji">🦁</div>
                     <div class="achievement-name">First Scout</div>
                 </div>
-                <div class="achievement-badge" title="Collector: Found 5 different animals">
+                <div class="achievement-badge" onclick="showAchievementDetails('Collector', '🦊', 'Found 5 different animals', 'Discover and photograph 5 different animal species to unlock this badge.', false)">
                     <div class="achievement-emoji">🦊</div>
                     <div class="achievement-name">Collector</div>
                 </div>
-                <div class="achievement-badge" title="Explorer: Found 10 different animals">
+                <div class="achievement-badge" onclick="showAchievementDetails('Explorer', '🦅', 'Found 10 different animals', 'Expand your zoo! Capture photos of 10 unique animal species.', false)">
                     <div class="achievement-emoji">🦅</div>
                     <div class="achievement-name">Explorer</div>
                 </div>
-                <div class="achievement-badge" title="Photographer: Took 20 photos">
+                <div class="achievement-badge" onclick="showAchievementDetails('Photographer', '📸', 'Took 20 photos', 'Keep clicking away! Take 20 photos total with your RDK device.', false)">
                     <div class="achievement-emoji">📸</div>
                     <div class="achievement-name">Photographer</div>
                 </div>
-                <div class="achievement-badge" title="Nature Master: Found all 5 categories">
+                <div class="achievement-badge" onclick="showAchievementDetails('Nature Master', '🌿', 'Found all 5 categories', 'Complete the zoo! Find at least one animal in each category: Dogs, Cats, Birds, Other Animals, and Non-Animals.', false)">
                     <div class="achievement-emoji">🌿</div>
                     <div class="achievement-name">Nature Master</div>
                 </div>
-                <div class="achievement-badge" title="Speed Runner: Classification under 1 second">
+                <div class="achievement-badge" onclick="showAchievementDetails('Speed Runner', '⚡', 'Classification under 1 second', 'Lightning quick! Get AI classification results in under 1 second.', false)">
                     <div class="achievement-emoji">⚡</div>
                     <div class="achievement-name">Speed Runner</div>
                 </div>
-                <div class="achievement-badge" title="Filter Fanatic: Used all filters">
+                <div class="achievement-badge" onclick="showAchievementDetails('Filter Fanatic', '🎨', 'Used all filters', 'Test all 9 filters on your photos: Normal, B&W, Sepia, Vintage, Cool, Warm, Bright, Dark, and Dramatic.', false)">
                     <div class="achievement-emoji">🎨</div>
                     <div class="achievement-name">Filter Fanatic</div>
                 </div>
-                <div class="achievement-badge" title="Night Owl: Took photos after 8 PM">
+                <div class="achievement-badge" onclick="showAchievementDetails('Night Owl', '🌙', 'Took photos after 8 PM', 'Work late! Capture photos anytime after 8 PM to earn this nocturnal badge.', false)">
                     <div class="achievement-emoji">🌙</div>
                     <div class="achievement-name">Night Owl</div>
                 </div>
-                <div class="achievement-badge" title="Multitasker: Viewed 50 photos">
+                <div class="achievement-badge" onclick="showAchievementDetails('Multitasker', '👀', 'Viewed 50 photos', 'Keep exploring! Double-click to zoom in and view 50 different photos from your gallery.', false)">
                     <div class="achievement-emoji">👀</div>
                     <div class="achievement-name">Multitasker</div>
                 </div>
-                <div class="achievement-badge" title="Perfectionist: 100% accuracy rate">
+                <div class="achievement-badge" onclick="showAchievementDetails('Perfectionist', '✨', '100% accuracy rate', 'Perfect match! Achieve a 100% confidence rate on AI classifications across all your photos.', false)">
                     <div class="achievement-emoji">✨</div>
                     <div class="achievement-name">Perfectionist</div>
                 </div>
-                <div class="achievement-badge" title="Social Butterfly: Shared 10 photos">
+                <div class="achievement-badge" onclick="showAchievementDetails('Social Butterfly', '🦋', 'Shared 10 photos', 'Spread the love! Download and share 10 of your favorite photos with friends.', false)">
                     <div class="achievement-emoji">🦋</div>
                     <div class="achievement-name">Social Butterfly</div>
                 </div>
-                <div class="achievement-badge" title="Zoo Master: Unlocked all achievements">
+                <div class="achievement-badge" onclick="showAchievementDetails('Zoo Master', '👑', 'Unlocked all achievements', 'Congratulations! You are the ultimate Zoo Animal Dictionary master and have earned every achievement!', false)">
                     <div class="achievement-emoji">👑</div>
                     <div class="achievement-name">Zoo Master</div>
                 </div>
@@ -965,7 +1131,76 @@
     </div>
     
     <!-- Floating Achievements Button -->
-    <div class="floating-achievements-btn" onclick="scrollToAchievements()" title="View Achievements">🏆</div>
+    <div class="floating-achievements-btn" onclick="openAchievementsPopup()" title="View Achievements">🏆</div>
+    
+    <!-- Achievements Popup Modal -->
+    <div class="achievements-popup-modal" id="achievementsPopup" onclick="closeAchievementsPopup(event)">
+        <div class="achievements-popup-content" onclick="event.stopPropagation();">
+            <button class="achievements-popup-close" onclick="closeAchievementsPopup()">&times;</button>
+            <h2>🏆 My Zoo Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-badge unlocked" onclick="showAchievementDetails('First Scout', '🦁', 'Found your first animal!', 'Upload your first photo to earn this achievement.', true)">
+                    <div class="achievement-emoji">🦁</div>
+                    <div class="achievement-name">First Scout</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Collector', '🦊', 'Found 5 different animals', 'Discover and photograph 5 different animal species to unlock this badge.', false)">
+                    <div class="achievement-emoji">🦊</div>
+                    <div class="achievement-name">Collector</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Explorer', '🦅', 'Found 10 different animals', 'Expand your zoo! Capture photos of 10 unique animal species.', false)">
+                    <div class="achievement-emoji">🦅</div>
+                    <div class="achievement-name">Explorer</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Photographer', '📸', 'Took 20 photos', 'Keep clicking away! Take 20 photos total with your RDK device.', false)">
+                    <div class="achievement-emoji">📸</div>
+                    <div class="achievement-name">Photographer</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Nature Master', '🌿', 'Found all 5 categories', 'Complete the zoo! Find at least one animal in each category: Dogs, Cats, Birds, Other Animals, and Something Else.', false)">
+                    <div class="achievement-emoji">🌿</div>
+                    <div class="achievement-name">Nature Master</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Speed Runner', '⚡', 'Classification under 1 second', 'Lightning quick! Get AI classification results in under 1 second.', false)">
+                    <div class="achievement-emoji">⚡</div>
+                    <div class="achievement-name">Speed Runner</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Filter Fanatic', '🎨', 'Used all filters', 'Test all 9 filters on your photos: Normal, B&W, Sepia, Vintage, Cool, Warm, Bright, Dark, and Dramatic.', false)">
+                    <div class="achievement-emoji">🎨</div>
+                    <div class="achievement-name">Filter Fanatic</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Night Owl', '🌙', 'Took photos after 8 PM', 'Work late! Capture photos anytime after 8 PM to earn this nocturnal badge.', false)">
+                    <div class="achievement-emoji">🌙</div>
+                    <div class="achievement-name">Night Owl</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Multitasker', '👀', 'Viewed 50 photos', 'Keep exploring! Double-click to zoom in and view 50 different photos from your gallery.', false)">
+                    <div class="achievement-emoji">👀</div>
+                    <div class="achievement-name">Multitasker</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Perfectionist', '✨', '100% accuracy rate', 'Perfect match! Achieve a 100% confidence rate on AI classifications across all your photos.', false)">
+                    <div class="achievement-emoji">✨</div>
+                    <div class="achievement-name">Perfectionist</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Social Butterfly', '🦋', 'Shared 10 photos', 'Spread the love! Download and share 10 of your favorite photos with friends.', false)">
+                    <div class="achievement-emoji">🦋</div>
+                    <div class="achievement-name">Social Butterfly</div>
+                </div>
+                <div class="achievement-badge" onclick="showAchievementDetails('Zoo Master', '👑', 'Unlocked all achievements', 'Congratulations! You are the ultimate Zoo Animal Dictionary master and have earned every achievement!', false)">
+                    <div class="achievement-emoji">👑</div>
+                    <div class="achievement-name">Zoo Master</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Achievement Details Modal -->
+    <div class="achievement-modal" id="achievementModal" onclick="closeAchievementModal(event)">
+        <div class="achievement-modal-content" onclick="event.stopPropagation();">
+            <button class="achievement-modal-close" onclick="closeAchievementModal()">&times;</button>
+            <div class="achievement-modal-emoji" id="modalEmoji"></div>
+            <h2 class="achievement-modal-name" id="modalName"></h2>
+            <p class="achievement-modal-description" id="modalDescription"></p>
+            <div class="achievement-modal-status" id="modalStatus"></div>
+        </div>
+    </div>
     
     <!-- Zoom Modal -->
     <div class="zoom-modal" id="zoomModal" onclick="closeZoom(event)">
@@ -998,6 +1233,7 @@
         </div>
         <div class="zoom-container">
             <img id="zoomImage" class="zoom-image" src="" alt="">
+            <div id="magnifyingGlass"></div>
             <div class="zoom-info">
                 <h3 id="zoomName"></h3>
                 <p><strong>AI Result:</strong> <span id="zoomLabel"></span></p>
@@ -1049,6 +1285,65 @@
             }
         }
         
+        function openAchievementsPopup() {
+            const modal = document.getElementById('achievementsPopup');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeAchievementsPopup(event) {
+            if (event && event.target.id !== 'achievementsPopup') return;
+            
+            const modal = document.getElementById('achievementsPopup');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close achievements popup on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAchievementsPopup({ target: { id: 'achievementsPopup' } });
+            }
+        });
+        
+        function showAchievementDetails(name, emoji, title, description, isUnlocked) {
+            const modal = document.getElementById('achievementModal');
+            const modalName = document.getElementById('modalName');
+            const modalEmoji = document.getElementById('modalEmoji');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalStatus = document.getElementById('modalStatus');
+            
+            modalName.textContent = name;
+            modalEmoji.textContent = emoji;
+            modalDescription.innerHTML = `<strong>${title}</strong><br><br>${description}`;
+            
+            if (isUnlocked) {
+                modalStatus.textContent = '✅ Unlocked!';
+                modalStatus.className = 'achievement-modal-status unlocked';
+            } else {
+                modalStatus.textContent = '🔒 Locked - Keep trying!';
+                modalStatus.className = 'achievement-modal-status locked';
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeAchievementModal(event) {
+            if (event && event.target.id !== 'achievementModal') return;
+            
+            const modal = document.getElementById('achievementModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close achievement modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAchievementModal({ target: { id: 'achievementModal' } });
+            }
+        });
+        
         let currentImageData = {
             url: '',
             name: '',
@@ -1058,6 +1353,63 @@
             category: ''
         };
         let isMagnified = false;
+        
+        function generateFunHeading(aiLabel) {
+            const label = aiLabel.toLowerCase();
+            
+            // Specific animal messages
+            const funMessages = {
+                'dog': "It's a Dog! 🐕",
+                'cat': "It's a Cat! 🐈",
+                'bird': "It's a Bird! 🐦",
+                'monkey': "It's a Monkey! 🐒",
+                'gorilla': "It's a Gorilla! 🦍",
+                'lion': "It's a Lion! 🦁",
+                'tiger': "It's a Tiger! 🐯",
+                'bear': "It's a Bear! 🐻",
+                'elephant': "It's an Elephant! 🐘",
+                'giraffe': "It's a Giraffe! 🦒",
+                'zebra': "It's a Zebra! 🦓",
+                'deer': "It's a Deer! 🦌",
+                'horse': "It's a Horse! 🐴",
+                'pig': "It's a Pig! 🐷",
+                'cow': "It's a Cow! 🐄",
+                'sheep': "It's a Sheep! 🐑",
+                'penguin': "It's a Penguin! 🐧",
+                'panda': "It's a Panda! 🐼",
+                'rabbit': "It's a Rabbit! 🐰",
+                'fox': "It's a Fox! 🦊",
+                'wolf': "It's a Wolf! 🐺",
+                'dolphin': "It's a Dolphin! 🐬",
+                'whale': "It's a Whale! 🐋",
+                'snake': "It's a Snake! 🐍",
+                'crocodile': "It's a Crocodile! 🐊",
+                'turtle': "It's a Turtle! 🐢",
+            };
+            
+            // Check for exact matches first
+            if (funMessages[label]) {
+                return funMessages[label];
+            }
+            
+            // Check for partial matches
+            for (const [animal, message] of Object.entries(funMessages)) {
+                if (label.includes(animal)) {
+                    return message;
+                }
+            }
+            
+            // Default messages for categories
+            if (label.includes('animal')) {
+                return "Nice catch! It's an animal! 🦁";
+            }
+            if (label === 'non_animal' || label === 'something else') {
+                return "Nice photo! I don't think it's an animal though! 📸";
+            }
+            
+            // Fallback
+            return "Interesting! Great photo! 📷";
+        }
         
         function zoomImage(imageUrl, imageName, aiLabel, confidence, index, category) {
             const modal = document.getElementById('zoomModal');
@@ -1071,7 +1423,7 @@
             currentImageData = { url: imageUrl, name: imageName, aiLabel, confidence, index, category };
             
             zoomImg.src = imageUrl;
-            zoomName.textContent = imageName;
+            zoomName.textContent = generateFunHeading(aiLabel);
             zoomLabel.textContent = aiLabel;
             zoomConfidence.textContent = confidence;
             downloadLink.href = imageUrl;
@@ -1103,32 +1455,55 @@
         function toggleMagnify() {
             const zoomImg = document.getElementById('zoomImage');
             const magnifyBtn = document.getElementById('magnifyBtn');
+            const magnifyingGlass = document.getElementById('magnifyingGlass');
             
             isMagnified = !isMagnified;
             magnifyBtn.classList.toggle('active');
             
             if (isMagnified) {
                 zoomImg.classList.add('magnified');
+                magnifyingGlass.classList.add('active');
+                
+                // Set up the magnifying glass with the image
+                const imgSrc = zoomImg.src;
+                magnifyingGlass.style.backgroundImage = `url('${imgSrc}')`;
+                
                 zoomImg.addEventListener('mousemove', magnifyImageArea);
+                zoomImg.addEventListener('mouseenter', () => magnifyingGlass.classList.add('active'));
+                zoomImg.addEventListener('mouseleave', () => magnifyingGlass.classList.remove('active'));
             } else {
                 zoomImg.classList.remove('magnified');
+                magnifyingGlass.classList.remove('active');
+                magnifyingGlass.style.display = 'none';
                 zoomImg.removeEventListener('mousemove', magnifyImageArea);
-                zoomImg.style.transform = 'scale(1)';
-                zoomImg.style.transformOrigin = 'center center';
             }
         }
         
         function magnifyImageArea(e) {
             const zoomImg = this;
+            const magnifyingGlass = document.getElementById('magnifyingGlass');
             const rect = zoomImg.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            const xPercent = (x / rect.width) * 100;
-            const yPercent = (y / rect.height) * 100;
+            // Position magnifying glass centered on cursor (90 = 180/2)
+            magnifyingGlass.style.left = (x - 90) + 'px';
+            magnifyingGlass.style.top = (y - 90) + 'px';
             
-            zoomImg.style.transform = 'scale(2)';
-            zoomImg.style.transformOrigin = xPercent + '% ' + yPercent + '%';
+            // Calculate zoom factor (2.5x magnification for less zoom)
+            const zoomFactor = 2.5;
+            
+            // Calculate background size (zoomed image)
+            const zoomedWidth = rect.width * zoomFactor;
+            const zoomedHeight = rect.height * zoomFactor;
+            
+            magnifyingGlass.style.backgroundSize = zoomedWidth + 'px ' + zoomedHeight + 'px';
+            
+            // Position so cursor area is centered in magnifying glass
+            const posX = -(x * zoomFactor - 90);
+            const posY = -(y * zoomFactor - 90);
+            
+            magnifyingGlass.style.backgroundPosition = posX + 'px ' + posY + 'px';
         }
         
         function nextImage() {
