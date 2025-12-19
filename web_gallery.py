@@ -69,6 +69,11 @@ def serve_image(category, filename):
     """Serve individual images"""
     return send_from_directory(f'static/gallery/{category}', filename)
 
+@app.route('/download/<category>/<filename>')
+def download_image(category, filename):
+    """Serve image as attachment for download"""
+    return send_from_directory(f'static/gallery/{category}', filename, as_attachment=True)
+
 @app.route('/api/stats')
 def get_stats():
     """Get gallery statistics"""

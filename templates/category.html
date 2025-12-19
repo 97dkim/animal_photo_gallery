@@ -2,12 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ category|upper }} - RDK Gallery</title>
+    <title>{{ category|upper }} - My First Animal Camera</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 20px; background: #fdfcfb; color: #2c3e50; }
         .back-link { margin-bottom: 20px; }
         .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .image-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+        .image-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
+        a { color: #ff6f61; font-weight: 600; }
+        .download-link { display: inline-block; margin-top: 6px; background: #ff9f1c; color: #1f2d3d; padding: 6px 10px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+        .download-link:hover { background: #ffb347; }
     </style>
 </head>
 <body>
@@ -23,6 +26,7 @@
         <div>
             <img src="{{ image.url }}" alt="{{ image.name }}">
             <p>{{ image.name }}</p>
+            <p><a class="download-link" href="/download/{{ category }}/{{ image.name }}" download>Download</a></p>
         </div>
         {% endfor %}
     </div>

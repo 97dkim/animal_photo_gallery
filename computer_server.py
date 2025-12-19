@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Computer Server - DEBUG VERSION with heartbeat
+Computer Server - DEBUG VERSION
 """
 
 import socket
@@ -20,7 +20,6 @@ class ComputerServer:
         self.host = host
         self.port = port
         self.classifier = ImageClassifier()
-        self.last_activity = time.time()
         
         # Create directories
         os.makedirs('uploads', exist_ok=True)
@@ -37,22 +36,9 @@ class ComputerServer:
         print("\nServer is ACTIVE and waiting...")
         print("Press Ctrl+C to stop")
         print("=" * 70)
-        
-        # Start heartbeat thread
-        self.heartbeat_thread = threading.Thread(target=self.heartbeat, daemon=True)
-        self.heartbeat_thread.start()
-        
-    
-    def heartbeat(self):
-        """Show server is alive every 30 seconds"""
-        while True:
-            time.sleep(30)
-            idle_time = time.time() - self.last_activity
-            print(f"⏰ Server heartbeat: Still waiting for RDK... (Idle: {int(idle_time)}s)")
     
     def handle_client(self, client_socket, client_address):
         """Handle incoming image from RDK"""
-        self.last_activity = time.time()
         print(f"\n📨 NEW CONNECTION from {client_address[0]}")
         
         try:
