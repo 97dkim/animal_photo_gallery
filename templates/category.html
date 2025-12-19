@@ -2,36 +2,42 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ category|upper }} - My First Animal Camera</title>
+    <title>{{ category|title }} - My Zoo Animal Dictionary</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 20px; background: #fdfcfb; color: #2c3e50; }
         .back-link { margin-bottom: 20px; }
-        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .image-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
-        a { color: #ff6f61; font-weight: 600; }
-        .download-link { display: inline-block; margin-top: 6px; background: #ff9f1c; color: #1f2d3d; padding: 6px 10px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+        .back-link a { color: #ff6f61; font-weight: 600; font-size: 1.1em; text-decoration: none; }
+        .back-link a:hover { text-decoration: underline; }
+        h1 { color: #ff6f61; font-size: 2.2em; margin-bottom: 10px; }
+        .subtitle { color: #4f6272; font-size: 1.1em; margin-bottom: 25px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .image-card { background: #fffef7; border-radius: 12px; padding: 12px; box-shadow: 0 6px 14px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .image-card:hover { transform: scale(1.03); }
+        .image-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .image-name { font-weight: 600; color: #2c3e50; margin-bottom: 8px; }
+        .download-link { display: inline-block; margin-top: 8px; background: #ff9f1c; color: #1f2d3d; padding: 8px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
         .download-link:hover { background: #ffb347; }
     </style>
 </head>
 <body>
     <div class="back-link">
-        <a href="/">← Back to all categories</a>
+        <a href="/">← Back to My Dictionary</a>
     </div>
-    <h1>{{ category|upper }} Category</h1>
-    <p>{{ images|length }} photos</p>
+    <h1>🦁 {{ category|title }} Animals</h1>
+    <p class="subtitle">{{ images|length }} animals discovered in this group!</p>
     
     {% if images %}
     <div class="image-grid">
         {% for image in images %}
-        <div>
+        <div class="image-card">
             <img src="{{ image.url }}" alt="{{ image.name }}">
-            <p>{{ image.name }}</p>
-            <p><a class="download-link" href="/download/{{ category }}/{{ image.name }}" download>Download</a></p>
+            <div class="image-name">📸 {{ image.ai_label if image.ai_label else image.name }}</div>
+            <a class="download-link" href="/download/{{ category }}/{{ image.name }}" download>⬇️ Save Photo</a>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <p>No photos in this category yet.</p>
+    <p>No animals found yet. Go take some pictures!</p>
     {% endif %}
 </body>
 </html>

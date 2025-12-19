@@ -75,7 +75,7 @@ class ImageClassifier:
                 'little blue heron', 'American egret', 'bittern', 'crane', 'limpkin',
                 'rail', 'coot', 'bustard', 'ruddy turnstone', 'red-backed sandpiper',
                 'redshank', 'dowitcher', 'oystercatcher', 'pelican', 'king penguin',
-                'albatross', 'grey whale', 'killer whale', 'dugong', 'sea lion'
+                'albatross'
             ]
         }
         return animal_keywords.get(animal_type, [])

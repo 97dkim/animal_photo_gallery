@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="3">
-    <title>My First Animal Camera</title>
+    <title>🦁 My Zoo Animal Dictionary</title>
     <style>
         * {
             margin: 0;
@@ -14,68 +14,123 @@
         }
         
         body {
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2f3ff 100%);
+            background: #f5e6d3;
             min-height: 100vh;
             padding: 20px;
-            color: #2c3e50;
+            color: #3d2817;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
         }
         
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 28px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-            border: 3px solid #ffd166;
+            background: #fffcf7;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border: 6px solid #d4a574;
+            position: relative;
+        }
+        
+        .container::before {
+            content: '📖';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 2em;
+            opacity: 0.3;
+        }
+        
+        .container::after {
+            content: '📖';
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 2em;
+            opacity: 0.3;
+            transform: scaleX(-1);
         }
         
         header {
             text-align: center;
             margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #ff9f1c;
+            padding: 30px 20px 25px;
+            border-bottom: 4px dashed #c85a17;
+            position: relative;
+            background: #f9f5f0;
+            border-radius: 20px;
+            border-top: 4px dashed #c85a17;
+        }
+        
+        header::after {
+            content: '🐾 🐾 🐾';
+            display: block;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 10px;
         }
         
         h1 {
-            color: #ff6f61;
-            font-size: 2.6em;
+            color: #c85a17;
+            font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 1px 1px 0 #ffd166;
+            text-shadow: 2px 2px 0 #d4a574;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
         }
         
         .subtitle {
-            color: #4f6272;
-            font-size: 1.1em;
+            color: #c85a17;
+            font-size: 1.15em;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 15px auto 0;
             line-height: 1.6;
+            font-weight: 600;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        }
+        
+        .welcome-message {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #8b6f47;
+            font-weight: 700;
         }
         
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            background: linear-gradient(135deg, #ffd166 0%, #ff9f1c 100%);
-            color: #2c3e50;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            background: #e8d5c4;
+            color: #3d2817;
+            padding: 35px 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            border: 3px solid #d4a574;
+            font-weight: bold;
         }
         
         .stat-card {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 20px;
-            border-radius: 10px;
+            background: #fffcf7;
+            padding: 20px 15px;
+            border-radius: 12px;
             text-align: center;
-            border: 2px dashed #ff9f1c;
+            border: 2px solid #c85a17;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(200, 90, 23, 0.2);
         }
         
         .stat-value {
             font-size: 2.3em;
             font-weight: bold;
             margin-bottom: 5px;
-            color: #ff6f61;
+            color: #c85a17;
         }
         
         .stat-label {
@@ -92,84 +147,127 @@
         }
         
         .filter-badge {
-            background: #6ecb63;
-            color: #1f2d3d;
-            padding: 8px 16px;
-            border-radius: 18px;
-            font-size: 0.9em;
+            background: #c85a17;
+            color: #fffcf7;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 1em;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border: 2px solid #8b6f47;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-badge:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: #a84910;
         }
         
         .filter-count {
-            background: #fff;
-            color: #6ecb63;
-            padding: 2px 8px;
-            border-radius: 10px;
+            background: #fffcf7;
+            color: #c85a17;
+            padding: 5px 12px;
+            border-radius: 15px;
             font-weight: bold;
+            border: 1px solid #c85a17;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.95em;
         }
         
         .category-section {
-            margin-bottom: 50px;
-            background: #fffef7;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-        
-        .category-section:hover {
-            transform: translateY(-5px);
+            margin-bottom: 60px;
+            background: #f9f5f0;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+            border: 4px solid #d4a574;
+            position: relative;
         }
         
         .category-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+            padding: 20px 25px;
+            background: #e8d5c4;
+            border-bottom: 3px dashed #c85a17;
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+        
+        .category-header:hover {
+            background: #d4c0af;
+            transform: scale(1.01);
+        }
+        
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+            margin-right: 10px;
+        }
+        
+        .toggle-icon.closed {
+            transform: rotate(-90deg);
         }
         
         .category-title {
-            color: #ff6f61;
-            font-size: 1.8em;
+            color: #c85a17;
+            font-size: 2em;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 15px;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            text-shadow: 1px 1px 0 #d4a574;
         }
         
         .category-icon {
-            font-size: 1.5em;
+            font-size: 2em;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
         }
         
         .category-count {
-            background: #ff9f1c;
-            color: #1f2d3d;
-            padding: 5px 15px;
-            border-radius: 20px;
+            background: #c85a17;
+            color: #fffcf7;
+            padding: 8px 18px;
+            border-radius: 25px;
             font-weight: bold;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            font-size: 1.05em;
         }
         
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 35px;
+            margin-top: 25px;
         }
         
         .gallery-item {
-            background: #fdf5d9;
-            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #fffcf7;
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            border: 3px solid #d4a574;
         }
         
         .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-12px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+        }
+        
+        .gallery-item.hidden {
+            display: none;
         }
         
         .image-container {
@@ -177,6 +275,11 @@
             width: 100%;
             height: 200px;
             overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .image-container:hover {
+            opacity: 0.9;
         }
         
         .gallery-item img {
@@ -184,18 +287,20 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            cursor: zoom-in;
         }
         
         .image-filter {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 159, 28, 0.9);
-            color: #1f2d3d;
-            padding: 5px 12px;
+            background: #c85a17;
+            color: #fffcf7;
+            padding: 6px 14px;
             border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: 500;
+            font-size: 0.85em;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
         .image-info {
@@ -232,13 +337,14 @@
         
         .category-tag {
             display: inline-block;
-            background: #6ecb63;
-            color: #1f2d3d;
-            padding: 5px 12px;
+            background: #d4a574;
+            color: #fffcf7;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: 600;
             margin-top: 10px;
+            border: 1px solid #c85a17;
         }
         
         .ai-confidence {
@@ -249,14 +355,426 @@
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #888;
+            color: #c85a17;
+            font-size: 1.3em;
+            font-weight: 600;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        }
+        
+        .empty-state div {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: #c85a17;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .achievements-section {
+            margin-top: 70px;
+            padding: 40px;
+            background: #f9f5f0;
+            border-radius: 25px;
+            border: 4px solid #d4a574;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .achievements-section h2 {
+            color: #c85a17;
+            font-size: 2.2em;
+            font-weight: 900;
+            margin-bottom: 35px;
+            text-align: center;
+            text-shadow: 2px 2px 0 #d4a574;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 25px;
+        }
+        
+        .achievement-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            background: #fffcf7;
+            border-radius: 18px;
+            border: 3px dashed #d4a574;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.4;
+            position: relative;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 12px rgba(200, 90, 23, 0.2);
+        }
+        
+        .achievement-badge.unlocked {
+            background: linear-gradient(135deg, #d4a574 0%, #c85a17 100%);
+            border: 3px solid #8b6f47;
+            opacity: 1;
+            box-shadow: 0 8px 16px rgba(200, 90, 23, 0.3);
+        }
+        
+        .achievement-badge.unlocked:hover {
+            transform: scale(1.12) rotateZ(5deg);
+            box-shadow: 0 10px 24px rgba(200, 90, 23, 0.5);
+        }
+        
+        .achievement-emoji {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        
+        .achievement-name {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .achievement-badge.unlocked .achievement-name {
+            color: #1f2d3d;
+        }
+        
+        .floating-achievements-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #d4a574 0%, #c85a17 100%);
+            border-radius: 50%;
+            border: 4px solid #8b6f47;
+            box-shadow: 0 10px 20px rgba(200, 90, 23, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .floating-achievements-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 14px 28px rgba(200, 90, 23, 0.4);
+        }
+        
+        .floating-achievements-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .gallery-grid.hidden {
+            display: none;
+        }
+        
+        .empty-state.hidden {
+            display: none;
+        }
+        
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .zoom-modal.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .zoom-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        
+        .zoom-image {
+            max-width: 85vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+        }
+        
+        .zoom-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #c85a17;
+            border: 3px solid #fffcf7;
+            color: white;
+            font-size: 2.2em;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            font-weight: bold;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .zoom-close-btn:hover {
+            background: #a84910;
+            transform: scale(1.15);
+        }
+        
+        .zoom-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .zoom-info h3 {
+            margin-bottom: 8px;
             font-size: 1.2em;
         }
         
-        .empty-state i {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #ccc;
+        .zoom-info p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .zoom-tools-toggle {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            border: 3px solid #fffcf7;
+            background: #c85a17;
+            color: #fffcf7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 2002;
+            transition: all 0.2s ease;
+        }
+        
+        .zoom-tools-toggle:hover {
+            background: #a84910;
+            transform: scale(1.08);
+        }
+        
+        .zoom-tools-panel {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(61, 40, 23, 0.92);
+            padding: 18px;
+            border-radius: 15px;
+            display: none;
+            gap: 12px;
+            flex-wrap: wrap;
+            max-width: 440px;
+            backdrop-filter: blur(10px);
+            z-index: 2002;
+            border: 2px solid #d4a574;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+        }
+        
+        .zoom-tools-panel.open {
+            display: flex;
+        }
+        
+        .tools-section {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        .tools-section-label {
+            width: 100%;
+            color: #fffcf7;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        
+        .zoom-tools-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-btn {
+            background: #c85a17;
+            border: 2px solid #8b6f47;
+            color: white;
+            padding: 12px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .filter-lion {
+            font-size: 1.4em;
+            display: inline-block;
+        }
+        
+        .filter-btn:hover {
+            background: #a84910;
+            transform: scale(1.08);
+        }
+        
+        .filter-btn.active {
+            background: #8b6f47;
+            border-color: #fffcf7;
+            box-shadow: 0 0 12px rgba(212, 165, 116, 0.5);
+        }
+
+        .zoom-extra-btn {
+            background: #c85a17;
+            border: 2px solid #8b6f47;
+            color: #fffcf7;
+            padding: 10px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .zoom-extra-btn:hover {
+            background: #a84910;
+            transform: scale(1.06);
+        }
+        
+        .zoom-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #c85a17;
+            border: 3px solid #fffcf7;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 2001;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .zoom-nav-btn:hover {
+            background: #a84910;
+            transform: translateY(-50%) scale(1.15);
+        }
+        
+        .zoom-nav-btn.prev {
+            left: 20px;
+        }
+        
+        .zoom-nav-btn.next {
+            right: 20px;
+        }
+        
+        .zoom-magnify-btn {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            background: #c85a17;
+            border: 3px solid #fffcf7;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 2001;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .zoom-magnify-btn:hover {
+            background: #a84910;
+            transform: scale(1.15);
+        }
+
+        .zoom-magnify-btn.active {
+            background: #a84910;
+            box-shadow: 0 0 16px rgba(200, 90, 23, 0.5);
+        }
+        
+        #zoomImage.magnified {
+            cursor: crosshair;
+        }
+        
+        @media (max-width: 768px) {
+            .zoom-close-btn {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5em;
+            }
+            
+            .zoom-info {
+                bottom: 10px;
+                left: 10px;
+                font-size: 0.85em;
+            }
         }
         
         @media (max-width: 768px) {
@@ -282,8 +800,9 @@
 <body>
     <div class="container">
         <header>
-            <h1>📸 My First Animal Camera</h1>
-            <p class="subtitle">Friendly animal snapshots, sorted for kids to explore.</p>
+            <h1>🦁 My Zoo Animal Dictionary</h1>
+            <p class="subtitle">Explore & Discover the Amazing Animal Kingdom!</p>
+            <p class="welcome-message">Double-click any photo to zoom in and explore 🔍</p>
         </header>
         
         {% set total_images = namespace(count=0) %}
@@ -301,8 +820,8 @@
                 <div class="stat-label">Total Photos</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">AI-Powered</div>
-                <div class="stat-label">Real-time Classification</div>
+                <div class="stat-value">🔍</div>
+                <div class="stat-label">Keep Exploring</div>
             </div>
         </div>
         
@@ -321,8 +840,9 @@
         {% if categories %}
             {% for category, images in categories.items() %}
             <div class="category-section">
-                <div class="category-header">
+                <div class="category-header" onclick="toggleCategory(this)">
                     <h2 class="category-title">
+                        <span class="toggle-icon">📂</span>
                         <span class="category-icon">
                             {% if category == 'dog' %}🐕
                             {% elif category == 'cat' %}🐈
@@ -341,7 +861,7 @@
                 {% if images %}
                 <div class="gallery-grid">
                     {% for image in images %}
-                    <div class="gallery-item">
+                    <div class="gallery-item" data-index="{{ loop.index0 }}" data-category="{{ category }}" ondblclick="zoomImage('{{ image.url }}', '{{ image.name }}', '{{ image.ai_label }}', '{{ image.confidence }}', {{ loop.index0 }}, '{{ category }}')">
                         <div class="image-container">
                             <img src="{{ image.url }}" alt="{{ image.name }}" loading="lazy">
                             {% if image.filter != 'Normal' %}
@@ -388,6 +908,299 @@
             <p>Press the capture button on your RDK to take your first photo.</p>
         </div>
         {% endif %}
+        
+        <!-- Achievements Section -->
+        <div class="achievements-section">
+            <h2>🏆 My Zoo Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-badge unlocked" title="Scout: Found your first animal!">
+                    <div class="achievement-emoji">🦁</div>
+                    <div class="achievement-name">First Scout</div>
+                </div>
+                <div class="achievement-badge" title="Collector: Found 5 different animals">
+                    <div class="achievement-emoji">🦊</div>
+                    <div class="achievement-name">Collector</div>
+                </div>
+                <div class="achievement-badge" title="Explorer: Found 10 different animals">
+                    <div class="achievement-emoji">🦅</div>
+                    <div class="achievement-name">Explorer</div>
+                </div>
+                <div class="achievement-badge" title="Photographer: Took 20 photos">
+                    <div class="achievement-emoji">📸</div>
+                    <div class="achievement-name">Photographer</div>
+                </div>
+                <div class="achievement-badge" title="Nature Master: Found all 5 categories">
+                    <div class="achievement-emoji">🌿</div>
+                    <div class="achievement-name">Nature Master</div>
+                </div>
+                <div class="achievement-badge" title="Speed Runner: Classification under 1 second">
+                    <div class="achievement-emoji">⚡</div>
+                    <div class="achievement-name">Speed Runner</div>
+                </div>
+                <div class="achievement-badge" title="Filter Fanatic: Used all filters">
+                    <div class="achievement-emoji">🎨</div>
+                    <div class="achievement-name">Filter Fanatic</div>
+                </div>
+                <div class="achievement-badge" title="Night Owl: Took photos after 8 PM">
+                    <div class="achievement-emoji">🌙</div>
+                    <div class="achievement-name">Night Owl</div>
+                </div>
+                <div class="achievement-badge" title="Multitasker: Viewed 50 photos">
+                    <div class="achievement-emoji">👀</div>
+                    <div class="achievement-name">Multitasker</div>
+                </div>
+                <div class="achievement-badge" title="Perfectionist: 100% accuracy rate">
+                    <div class="achievement-emoji">✨</div>
+                    <div class="achievement-name">Perfectionist</div>
+                </div>
+                <div class="achievement-badge" title="Social Butterfly: Shared 10 photos">
+                    <div class="achievement-emoji">🦋</div>
+                    <div class="achievement-name">Social Butterfly</div>
+                </div>
+                <div class="achievement-badge" title="Zoo Master: Unlocked all achievements">
+                    <div class="achievement-emoji">👑</div>
+                    <div class="achievement-name">Zoo Master</div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Floating Achievements Button -->
+    <div class="floating-achievements-btn" onclick="scrollToAchievements()" title="View Achievements">🏆</div>
+    
+    <!-- Zoom Modal -->
+    <div class="zoom-modal" id="zoomModal" onclick="closeZoom(event)">
+        <button class="zoom-close-btn" onclick="closeZoom()">&times;</button>
+        <button class="zoom-nav-btn prev" onclick="prevImage()" title="Previous">◀</button>
+        <button class="zoom-nav-btn next" onclick="nextImage()" title="Next">▶</button>
+        <button class="zoom-tools-toggle" onclick="toggleToolsMenu(event)" title="Tools">🎛️</button>
+        <div class="zoom-tools-panel" id="zoomToolsPanel" onclick="event.stopPropagation();">
+            <div class="tools-section">
+                <div class="tools-section-label">Filters</div>
+                <div class="zoom-tools-row">
+                    <button class="filter-btn active" onclick="applyFilter('none', this)" title="Normal"><span class="filter-lion" style="filter: none;">🦁</span> Normal</button>
+                    <button class="filter-btn" onclick="applyFilter('grayscale', this)" title="B&W"><span class="filter-lion" style="filter: grayscale(100%);">🦁</span> B&W</button>
+                    <button class="filter-btn" onclick="applyFilter('sepia', this)" title="Sepia"><span class="filter-lion" style="filter: sepia(80%);">🦁</span> Sepia</button>
+                    <button class="filter-btn" onclick="applyFilter('vintage', this)" title="Vintage"><span class="filter-lion" style="filter: saturate(0.8) sepia(30%) hue-rotate(-10deg);">🦁</span> Vintage</button>
+                    <button class="filter-btn" onclick="applyFilter('cool', this)" title="Cool"><span class="filter-lion" style="filter: saturate(1.2) hue-rotate(180deg) brightness(1.1);">🦁</span> Cool</button>
+                    <button class="filter-btn" onclick="applyFilter('warm', this)" title="Warm"><span class="filter-lion" style="filter: saturate(1.2) hue-rotate(15deg) brightness(1.1);">🦁</span> Warm</button>
+                    <button class="filter-btn" onclick="applyFilter('bright', this)" title="Bright"><span class="filter-lion" style="filter: brightness(1.3) contrast(1.1);">🦁</span> Bright</button>
+                    <button class="filter-btn" onclick="applyFilter('dark', this)" title="Dark"><span class="filter-lion" style="filter: brightness(0.7) contrast(1.2);">🦁</span> Dark</button>
+                    <button class="filter-btn" onclick="applyFilter('dramatic', this)" title="Dramatic"><span class="filter-lion" style="filter: saturate(1.5) contrast(1.3) brightness(0.95);">🦁</span> Drama</button>
+                </div>
+            </div>
+            <div class="tools-section">
+                <div class="tools-section-label">Extras</div>
+                <div class="zoom-tools-row">
+                    <button class="zoom-extra-btn" id="magnifyBtn" onclick="toggleMagnify(); return false;" title="Magnify">🔍 Magnify</button>
+                    <a class="zoom-extra-btn" id="zoomDownload" href="#" download title="Download">⬇ Download</a>
+                </div>
+            </div>
+        </div>
+        <div class="zoom-container">
+            <img id="zoomImage" class="zoom-image" src="" alt="">
+            <div class="zoom-info">
+                <h3 id="zoomName"></h3>
+                <p><strong>AI Result:</strong> <span id="zoomLabel"></span></p>
+                <p><strong>Confidence:</strong> <span id="zoomConfidence"></span></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleCategory(headerElement) {
+            const categorySection = headerElement.closest('.category-section');
+            const gallery = categorySection.querySelector('.gallery-grid');
+            const emptyState = categorySection.querySelector('.empty-state');
+            const toggleIcon = headerElement.querySelector('.toggle-icon');
+            
+            if (gallery) {
+                gallery.classList.toggle('hidden');
+            }
+            if (emptyState) {
+                emptyState.classList.toggle('hidden');
+            }
+            toggleIcon.classList.toggle('closed');
+        }
+        
+        function scrollToAchievements() {
+            const achievementsSection = document.querySelector('.achievements-section');
+            if (achievementsSection) {
+                achievementsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        let currentImageData = {
+            url: '',
+            name: '',
+            aiLabel: '',
+            confidence: '',
+            index: 0,
+            category: ''
+        };
+        let isMagnified = false;
+        
+        function zoomImage(imageUrl, imageName, aiLabel, confidence, index, category) {
+            const modal = document.getElementById('zoomModal');
+            const zoomImg = document.getElementById('zoomImage');
+            const zoomName = document.getElementById('zoomName');
+            const zoomLabel = document.getElementById('zoomLabel');
+            const zoomConfidence = document.getElementById('zoomConfidence');
+            const downloadLink = document.getElementById('zoomDownload');
+            const toolsPanel = document.getElementById('zoomToolsPanel');
+            
+            currentImageData = { url: imageUrl, name: imageName, aiLabel, confidence, index, category };
+            
+            zoomImg.src = imageUrl;
+            zoomName.textContent = imageName;
+            zoomLabel.textContent = aiLabel;
+            zoomConfidence.textContent = confidence;
+            downloadLink.href = imageUrl;
+            downloadLink.setAttribute('download', imageName);
+            zoomImg.style.filter = 'none';
+            isMagnified = false;
+            zoomImg.classList.remove('magnified');
+            zoomImg.removeEventListener('mousemove', magnifyImageArea);
+            toolsPanel.classList.remove('open');
+            
+            // Reset filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn[onclick*="none"]').classList.add('active');
+            
+            // Reset magnify button
+            const magnifyBtn = document.getElementById('magnifyBtn');
+            magnifyBtn.classList.remove('active');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function toggleToolsMenu(event) {
+            event.stopPropagation();
+            const toolsPanel = document.getElementById('zoomToolsPanel');
+            toolsPanel.classList.toggle('open');
+        }
+        
+        function toggleMagnify() {
+            const zoomImg = document.getElementById('zoomImage');
+            const magnifyBtn = document.getElementById('magnifyBtn');
+            
+            isMagnified = !isMagnified;
+            magnifyBtn.classList.toggle('active');
+            
+            if (isMagnified) {
+                zoomImg.classList.add('magnified');
+                zoomImg.addEventListener('mousemove', magnifyImageArea);
+            } else {
+                zoomImg.classList.remove('magnified');
+                zoomImg.removeEventListener('mousemove', magnifyImageArea);
+                zoomImg.style.transform = 'scale(1)';
+                zoomImg.style.transformOrigin = 'center center';
+            }
+        }
+        
+        function magnifyImageArea(e) {
+            const zoomImg = this;
+            const rect = zoomImg.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            
+            zoomImg.style.transform = 'scale(2)';
+            zoomImg.style.transformOrigin = xPercent + '% ' + yPercent + '%';
+        }
+        
+        function nextImage() {
+            const currentGrid = document.querySelector(`[data-category="${currentImageData.category}"] .gallery-grid`);
+            if (!currentGrid) return;
+            
+            const items = Array.from(currentGrid.querySelectorAll('.gallery-item'));
+            let nextIndex = (currentImageData.index + 1) % items.length;
+            
+            const nextItem = items[nextIndex];
+            const url = nextItem.querySelector('img').src;
+            const name = nextItem.querySelector('.image-name').textContent;
+            const aiLabel = nextItem.querySelector('.detail-item:nth-child(1) span:last-child').textContent;
+            const confidence = nextItem.querySelector('.detail-item:nth-child(2) span:last-child').textContent;
+            
+            zoomImage(url, name, aiLabel, confidence, nextIndex, currentImageData.category);
+        }
+        
+        function prevImage() {
+            const currentGrid = document.querySelector(`[data-category="${currentImageData.category}"] .gallery-grid`);
+            if (!currentGrid) return;
+            
+            const items = Array.from(currentGrid.querySelectorAll('.gallery-item'));
+            let prevIndex = (currentImageData.index - 1 + items.length) % items.length;
+            
+            const prevItem = items[prevIndex];
+            const url = prevItem.querySelector('img').src;
+            const name = prevItem.querySelector('.image-name').textContent;
+            const aiLabel = prevItem.querySelector('.detail-item:nth-child(1) span:last-child').textContent;
+            const confidence = prevItem.querySelector('.detail-item:nth-child(2) span:last-child').textContent;
+            
+            zoomImage(url, name, aiLabel, confidence, prevIndex, currentImageData.category);
+        }
+        
+        function applyFilter(filterType, btn) {
+            const zoomImg = document.getElementById('zoomImage');
+            let filterValue = '';
+            
+            switch(filterType) {
+                case 'none':
+                    filterValue = 'none';
+                    break;
+                case 'grayscale':
+                    filterValue = 'grayscale(100%)';
+                    break;
+                case 'sepia':
+                    filterValue = 'sepia(80%)';
+                    break;
+                case 'vintage':
+                    filterValue = 'saturate(0.8) sepia(30%) hue-rotate(-10deg)';
+                    break;
+                case 'cool':
+                    filterValue = 'saturate(1.2) hue-rotate(180deg) brightness(1.1)';
+                    break;
+                case 'warm':
+                    filterValue = 'saturate(1.2) hue-rotate(15deg) brightness(1.1)';
+                    break;
+                case 'bright':
+                    filterValue = 'brightness(1.3) contrast(1.1)';
+                    break;
+                case 'dark':
+                    filterValue = 'brightness(0.7) contrast(1.2)';
+                    break;
+                case 'dramatic':
+                    filterValue = 'saturate(1.5) contrast(1.3) brightness(0.95)';
+                    break;
+            }
+            
+            zoomImg.style.filter = filterValue;
+            
+            document.querySelectorAll('.filter-btn').forEach(el => el.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+        }
+        
+        function closeZoom(event) {
+            // Close if clicking outside the image container or on close button
+            if (event && event.target.id !== 'zoomModal') return;
+            
+            const modal = document.getElementById('zoomModal');
+            const toolsPanel = document.getElementById('zoomToolsPanel');
+            if (toolsPanel) toolsPanel.classList.remove('open');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close zoom on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeZoom({ target: { id: 'zoomModal' } });
+            }
+        });
+    </script>
 </body>
 </html>
