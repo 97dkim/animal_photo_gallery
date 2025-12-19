@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ category|title }} - My Zoo Animal Dictionary</title>
+    <title>{{ category.replace('_', ' ')|title }} - My Zoo Animal Dictionary</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 20px; background: #fdfcfb; color: #2c3e50; }
         .back-link { margin-bottom: 20px; }
@@ -23,7 +23,7 @@
     <div class="back-link">
         <a href="/">← Back to My Dictionary</a>
     </div>
-    <h1>🦁 {{ category|title }} Animals</h1>
+    <h1>🦁 {{ category.replace('_', ' ')|title }} Animals</h1>
     <p class="subtitle">{{ images|length }} animals discovered in this group!</p>
     
     {% if images %}

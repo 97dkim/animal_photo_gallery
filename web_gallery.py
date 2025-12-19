@@ -8,8 +8,28 @@ from flask import Flask, render_template, send_from_directory, jsonify
 import os
 import json
 import time
+from collections import OrderedDict
 
 app = Flask(__name__)
+
+# Define category order
+CATEGORY_ORDER = ['dog', 'cat', 'bird', 'other_animal', 'non_animal']
+
+
+def get_latest_mtime(gallery_path='static/gallery'):
+    """Return latest modification time (float) across all gallery images."""
+    latest = 0.0
+    if not os.path.exists(gallery_path):
+        return latest
+    for root, _, files in os.walk(gallery_path):
+        for fname in files:
+            if fname.lower().endswith('.jpg'):
+                fpath = os.path.join(root, fname)
+                try:
+                    latest = max(latest, os.path.getmtime(fpath))
+                except OSError:
+                    pass
+    return latest
 
 def load_image_metadata(image_path):
     """Load metadata for an image if it exists"""
@@ -26,11 +46,15 @@ def load_image_metadata(image_path):
 def gallery():
     """Main gallery page"""
     gallery_path = 'static/gallery'
-    categories = {}
+    categories = OrderedDict()
     filter_stats = {}
+    latest_mtime = 0.0
     
-    # Get all categories and their images
-    for category in sorted(os.listdir(gallery_path)):
+    # Get all categories in defined order
+    all_dirs = os.listdir(gallery_path) if os.path.exists(gallery_path) else []
+    sorted_categories = sorted(all_dirs, key=lambda x: CATEGORY_ORDER.index(x) if x in CATEGORY_ORDER else len(CATEGORY_ORDER))
+    
+    for category in sorted_categories:
         category_path = os.path.join(gallery_path, category)
         if os.path.isdir(category_path):
             images = []
@@ -39,6 +63,7 @@ def gallery():
                     img_path = os.path.join(category_path, img)
                     img_url = f'/gallery/{category}/{img}'
                     img_time = os.path.getmtime(img_path)
+                    latest_mtime = max(latest_mtime, img_time)
                     
                     # Load metadata
                     metadata = load_image_metadata(img_path) or {}
@@ -60,9 +85,13 @@ def gallery():
             if images:
                 categories[category] = images
     
+    if latest_mtime == 0.0:
+        latest_mtime = get_latest_mtime(gallery_path)
+
     return render_template('gallery.html', 
                          categories=categories, 
-                         filter_stats=filter_stats)
+                         filter_stats=filter_stats,
+                         latest_mtime=latest_mtime)
 
 @app.route('/gallery/<category>/<filename>')
 def serve_image(category, filename):
@@ -78,11 +107,14 @@ def download_image(category, filename):
 def get_stats():
     """Get gallery statistics"""
     gallery_path = 'static/gallery'
-    stats = {}
+    stats = OrderedDict()
     total = 0
     filter_stats = {}
     
-    for category in os.listdir(gallery_path):
+    all_dirs = os.listdir(gallery_path) if os.path.exists(gallery_path) else []
+    sorted_categories = sorted(all_dirs, key=lambda x: CATEGORY_ORDER.index(x) if x in CATEGORY_ORDER else len(CATEGORY_ORDER))
+    
+    for category in sorted_categories:
         category_path = os.path.join(gallery_path, category)
         if os.path.isdir(category_path):
             count = 0
@@ -104,6 +136,13 @@ def get_stats():
         'total': total,
         'filters': filter_stats
     })
+
+
+@app.route('/api/last-updated')
+def last_updated():
+    """Return latest image modification time for conditional refresh."""
+    latest = get_latest_mtime('static/gallery')
+    return jsonify({'latest_mtime': latest})
 
 @app.route('/category/<category_name>')
 def category_view(category_name):

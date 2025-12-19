@@ -132,7 +132,7 @@ class ComputerServer:
             print(f"  ❌ Processing error: {e}")
     
     def run(self):
-        """Start the server"""
+        """Start the server and keep it alive unless Ctrl+C."""
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((self.host, self.port))
@@ -143,16 +143,23 @@ class ComputerServer:
         
         try:
             while True:
-                # This will "block" until a connection arrives
-                client, addr = server.accept()
-                thread = threading.Thread(target=self.handle_client, args=(client, addr))
-                thread.daemon = True
-                thread.start()
-                
+                try:
+                    client, addr = server.accept()
+                    thread = threading.Thread(target=self.handle_client, args=(client, addr))
+                    thread.daemon = True
+                    thread.start()
+                except KeyboardInterrupt:
+                    raise
+                except Exception as e:
+                    print(f"\n⚠️ Accept/loop error, continuing: {e}")
+                    time.sleep(0.5)
+                    continue
         except KeyboardInterrupt:
             print("\n\n🛑 Server shutdown requested...")
         except Exception as e:
-            print(f"\n❌ Server error: {e}")
+            print(f"\n❌ Server loop error, continuing to listen: {e}")
+            time.sleep(0.5)
+            self.run()
         finally:
             server.close()
             print("✅ Server stopped")

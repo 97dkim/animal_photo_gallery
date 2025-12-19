@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="3">
     <title>🦁 My Zoo Animal Dictionary</title>
     <style>
         * {
@@ -853,7 +852,7 @@
                             {% elif category == 'non_animal' %}🚫
                             {% else %}📸{% endif %}
                         </span>
-                        {{ category|upper }}
+                        {{ category.replace('_', ' ')|upper }}
                     </h2>
                     <div class="category-count">{{ images|length }} photos</div>
                 </div>
@@ -885,7 +884,7 @@
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 10px;">
-                                <span class="category-tag">{{ image.category }}</span>
+                                <span class="category-tag">{{ image.category.replace('_', ' ') }}</span>
                                 <a href="/download/{{ image.category }}/{{ image.name }}" download style="text-decoration: none; background: #3498db; color: white; padding: 6px 12px; border-radius: 10px; font-weight: 600; font-size: 0.9em;">Download</a>
                             </div>
                         </div>
@@ -1008,6 +1007,26 @@
     </div>
     
     <script>
+        // Poll for new images without full-page auto-refresh
+        const initialLatest = Number('{{ latest_mtime | default(0) }}');
+        const pollIntervalMs = 5000;
+
+        async function checkForUpdates() {
+            try {
+                const res = await fetch('/api/last-updated');
+                if (!res.ok) return;
+                const data = await res.json();
+                const serverLatest = Number(data.latest_mtime || 0);
+                if (serverLatest > initialLatest + 0.001) {
+                    location.reload();
+                }
+            } catch (err) {
+                console.warn('Update check failed', err);
+            }
+        }
+
+        setInterval(checkForUpdates, pollIntervalMs);
+
         function toggleCategory(headerElement) {
             const categorySection = headerElement.closest('.category-section');
             const gallery = categorySection.querySelector('.gallery-grid');
